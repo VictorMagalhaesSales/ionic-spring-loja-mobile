@@ -3,6 +3,8 @@ package com.appmobilespring.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class CategoriaResource {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Void> insert(@RequestBody CategoriaDTO dto){
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO dto){
 		Categoria categoria = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
