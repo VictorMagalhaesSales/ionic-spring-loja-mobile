@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +26,13 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping()
-	public ResponseEntity<?> insert(@RequestBody CategoriaDTO dto){
+	public ResponseEntity<Void> insert(@RequestBody CategoriaDTO dto){
 		Categoria categoria = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
@@ -39,9 +40,15 @@ public class CategoriaResource {
 	}	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody CategoriaDTO dto, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@RequestBody CategoriaDTO dto, @PathVariable Integer id){
 		dto.setId(id);
 		service.update(dto);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Integer id){
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

@@ -3,11 +3,13 @@ package com.appmobilespring.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.dto.CategoriaDTO;
 import com.appmobilespring.repositories.CategoriaRepository;
+import com.appmobilespring.services.exceptions.DataIntegrityException;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -29,6 +31,12 @@ public class CategoriaService {
 	public Categoria update(CategoriaDTO dto) {
 		find(dto.getId());
 		return repository.save(new Categoria(dto.getId(), dto.getNome()));
+	}
+	
+	public void delete(Integer id){
+		find(id);
+		repository.deleteById(id);
+		
 	}
 
 }
