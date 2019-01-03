@@ -54,8 +54,7 @@ public class CategoriaResource {
 	@PostMapping()
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO dto){
 		Categoria categoria = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}	
 	
