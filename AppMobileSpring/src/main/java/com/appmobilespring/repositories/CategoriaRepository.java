@@ -7,5 +7,5 @@ import com.appmobilespring.domain.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
-
+	
 }
