@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +32,16 @@ public class CategoriaResource {
 	
 	@PostMapping()
 	public ResponseEntity<?> insert(@RequestBody CategoriaDTO dto){
-		Categoria categoria = service.insert(new Categoria(dto.getId(), dto.getNome()));
+		Categoria categoria = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}	
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@RequestBody CategoriaDTO dto, @PathVariable Integer id){
+		dto.setId(id);
+		service.update(dto);
+		return ResponseEntity.noContent().build();
+	}
 }
