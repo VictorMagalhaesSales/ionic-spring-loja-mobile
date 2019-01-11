@@ -1,6 +1,5 @@
 package com.appmobilespring.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.dto.CategoriaDTO;
