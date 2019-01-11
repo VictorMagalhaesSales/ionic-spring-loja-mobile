@@ -43,12 +43,13 @@ public class CategoriaService {
 	}
 	
 	public Categoria insert(CategoriaDTO dto) {
-		return repository.save(new Categoria(dto.getId(), dto.getNome()));
+		return repository.save(new Categoria(null, dto.getNome()));
 	}
 	
 	public Categoria update(CategoriaDTO dto) {
-		find(dto.getId());
-		return repository.save(new Categoria(dto.getId(), dto.getNome()));
+		Categoria categoria = find(dto.getId());
+		categoria.setNome(dto.getNome());
+		return repository.save(categoria);
 	}
 	
 	public void delete(Integer id){
