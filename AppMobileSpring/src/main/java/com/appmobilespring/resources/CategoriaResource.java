@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.dto.CategoriaDTO;
+import com.appmobilespring.resources.utils.CreateURI;
 import com.appmobilespring.services.CategoriaService;
 
 @RestController
@@ -54,8 +55,7 @@ public class CategoriaResource {
 	@PostMapping()
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO dto){
 		Categoria categoria = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(CreateURI.create(categoria.getId())).build();
 	}	
 	
 	@PutMapping("/{id}")
