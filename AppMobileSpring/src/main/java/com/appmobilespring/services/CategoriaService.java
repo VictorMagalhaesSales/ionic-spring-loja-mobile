@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.dto.CategoriaDTO;
 import com.appmobilespring.repositories.CategoriaRepository;
+import com.appmobilespring.services.exceptions.DataIntegrityException;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -51,7 +53,11 @@ public class CategoriaService {
 	
 	public void delete(Integer id){
 		find(id);
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 	
 	public List<CategoriaDTO> ListToDTO(List<Categoria> lista){

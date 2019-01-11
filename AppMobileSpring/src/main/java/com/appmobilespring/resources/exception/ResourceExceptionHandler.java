@@ -2,7 +2,6 @@ package com.appmobilespring.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.appmobilespring.services.exceptions.DataIntegrityException;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -22,10 +22,10 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException e, HttpServletRequest request) {
+	@ExceptionHandler(DataIntegrityException.class)
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 		
-		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "asd", System.currentTimeMillis());
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 	
