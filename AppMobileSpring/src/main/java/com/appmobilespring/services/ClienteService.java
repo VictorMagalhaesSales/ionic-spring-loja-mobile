@@ -1,7 +1,9 @@
 package com.appmobilespring.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.appmobilespring.domain.Cidade;
 import com.appmobilespring.domain.Cliente;
+import com.appmobilespring.domain.Endereco;
+import com.appmobilespring.domain.enums.TipoCliente;
 import com.appmobilespring.dto.ClienteDTO;
+import com.appmobilespring.dto.ClienteNewDTO;
 import com.appmobilespring.repositories.ClienteRepository;
+import com.appmobilespring.repositories.EnderecoRepository;
 import com.appmobilespring.services.exceptions.DataIntegrityException;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
@@ -23,7 +31,10 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository repository;
-
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -42,8 +53,18 @@ public class ClienteService {
 		return listDto;
 	}
 	
-	public Cliente insert(ClienteDTO dto) {
-		return repository.save(new Cliente(dto.getId(), dto.getNome(), dto.getEmail(), null, null));
+	@Transactional // Essa anotação permite que todos os inserts desse método ocorram na mesma transação
+	public Cliente insert(ClienteNewDTO dto) {
+		Cliente cliente = dtoToCliente(dto);
+		Endereco endereco = dtoToEndereco(dto);
+		
+		cliente.setEnderecos(Arrays.asList(endereco));
+		endereco.setCliente(cliente);
+		
+		cliente = repository.save(cliente);
+		endereco = enderecoRepository.save(endereco);
+		
+		return cliente;
 	}
 	
 	public Cliente update(ClienteDTO dto) {
@@ -65,6 +86,27 @@ public class ClienteService {
 	public List<ClienteDTO> ListToDTO(List<Cliente> lista){
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return listaDTO;
+	}
+
+	public Cliente dtoToCliente(ClienteNewDTO dto) {
+		Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getTipo()));
+		List<String> list = Arrays.asList(dto.getTelefone1(),dto.getTelefone2(),dto.getTelefone3());
+		Set<String> telefones = list.stream().collect(Collectors.toSet());
+		cliente.setTelefones(telefones);
+		return cliente;
+	}
+
+	public Endereco dtoToEndereco(ClienteNewDTO dto) {
+		return new Endereco(
+				null,
+				dto.getLogradouro(),
+				dto.getNumero(),
+				dto.getComplemento(),
+				dto.getBairro(),
+				dto.getCep(),
+				null,
+				new Cidade(dto.getCidadeId(), null, null)
+				);
 	}
 
 }

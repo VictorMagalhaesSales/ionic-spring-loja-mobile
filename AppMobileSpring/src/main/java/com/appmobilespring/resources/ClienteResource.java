@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.appmobilespring.domain.Cliente;
 import com.appmobilespring.dto.ClienteDTO;
+import com.appmobilespring.dto.ClienteNewDTO;
 import com.appmobilespring.resources.utils.CreateURI;
 import com.appmobilespring.services.ClienteService;
 
@@ -51,7 +52,7 @@ public class ClienteResource {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO dto){
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO dto){
 		Cliente cliente = service.insert(dto);
 		return ResponseEntity.created(CreateURI.create(cliente.getId())).build();
 	}	
