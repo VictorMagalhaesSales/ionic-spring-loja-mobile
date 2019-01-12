@@ -3,46 +3,37 @@ package com.appmobilespring.services.validation;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.appmobilespring.domain.Cliente;
-import com.appmobilespring.domain.enums.TipoCliente;
-import com.appmobilespring.dto.ClienteNewDTO;
+import com.appmobilespring.dto.ClienteDTO;
 import com.appmobilespring.repositories.ClienteRepository;
 import com.appmobilespring.resources.exception.FieldMessage;
-import com.appmobilespring.services.validation.utils.BR;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
-	
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO>{
+
 	@Autowired
 	private ClienteRepository clienteRepository;
 
 	@Override
-	public void initialize(ClienteInsert ann) {
+	public void initialize(ClienteUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
-
+	public boolean isValid(ClienteDTO dto, ConstraintValidatorContext context) {
+		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		Cliente cliente = clienteRepository.findByEmail(objDto.getEmail());
+		Cliente cliente = clienteRepository.findByEmail(dto.getEmail());
 		
-		if(cliente != null) {
+		if(cliente != null && !cliente.getId().equals(dto.getId())) {
 			list.add(new FieldMessage("email", "Email já existente"));
-		}	
+		}
 		
-		if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
-		}
-
-		if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())) {
-			list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
-		}
-
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
@@ -50,4 +41,5 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		}
 		return list.isEmpty();
 	}
+
 }
