@@ -4,7 +4,9 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import com.appmobilespring.domain.Pedido;
 public class EmailServiceAlternative {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(MockEmailService.class);
+	
+	@Autowired
+	private MailSender mailSender;
 	
 	@Value("${default.sender}")
 	private String sender;
@@ -27,7 +32,7 @@ public class EmailServiceAlternative {
 		smm.setText(pedido.toString());
 		
 		LOG.info("Simulando envio de email alternativo...");
-		LOG.info(smm.toString());
+		mailSender.send(smm);
 		LOG.info("Email enviado");
 	}
 }

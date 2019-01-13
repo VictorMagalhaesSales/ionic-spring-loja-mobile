@@ -14,7 +14,6 @@ import com.appmobilespring.repositories.ItemPedidoRepository;
 import com.appmobilespring.repositories.PagamentoRepository;
 import com.appmobilespring.repositories.PedidoRepository;
 import com.appmobilespring.services.email.EmailService;
-import com.appmobilespring.services.email.EmailServiceAlternative;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -41,8 +40,7 @@ public class PedidoService {
 	@Autowired
 	private EmailService emailService;
 	
-	@Autowired
-	private EmailServiceAlternative emailServiceAlternative;
+	// @Autowired private EmailServiceAlternative emailServiceAlternative;
 	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
