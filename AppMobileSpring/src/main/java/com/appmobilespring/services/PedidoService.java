@@ -13,6 +13,8 @@ import com.appmobilespring.domain.enums.EstadoPagamento;
 import com.appmobilespring.repositories.ItemPedidoRepository;
 import com.appmobilespring.repositories.PagamentoRepository;
 import com.appmobilespring.repositories.PedidoRepository;
+import com.appmobilespring.services.email.EmailService;
+import com.appmobilespring.services.email.EmailServiceAlternative;
 import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -33,7 +35,16 @@ public class PedidoService {
 	@Autowired
 	private ProdutoService produtoService;
 	
-	public Pedido buscar(Integer id) {
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private EmailServiceAlternative emailServiceAlternative;
+	
+	public Pedido find(Integer id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
@@ -42,6 +53,7 @@ public class PedidoService {
 	public Pedido insert(Pedido pedido) {
 		pedido.setId(null);
 		pedido.setInstante(new Date());
+		pedido.setCliente(clienteService.find(pedido.getCliente().getId()));
 		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		pedido.getPagamento().setPedido(pedido);
 		if (pedido.getPagamento() instanceof PagamentoComBoleto) {
@@ -52,10 +64,13 @@ public class PedidoService {
 		pagamentoRepository.save(pedido.getPagamento());
 		for (ItemPedido ip : pedido.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(pedido);
 		}
 		itemPedidoRepository.saveAll(pedido.getItens());
+		emailService.sendOrderConfirmationEmail(pedido);
+		// emailServiceAlternative.sendEmail(pedido);
 		return pedido;
 	}
 
