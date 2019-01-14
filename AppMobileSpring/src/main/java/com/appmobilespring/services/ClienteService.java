@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCPE;
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
@@ -89,7 +93,7 @@ public class ClienteService {
 	}
 
 	public Cliente dtoToCliente(ClienteNewDTO dto) {
-		Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getTipo()));
+		Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), bCPE.encode(dto.getSenha()), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getTipo()));
 		List<String> list = Arrays.asList(dto.getTelefone1(),dto.getTelefone2(),dto.getTelefone3());
 		Set<String> telefones = list.stream().collect(Collectors.toSet());
 		cliente.setTelefones(telefones);
@@ -101,7 +105,7 @@ public class ClienteService {
 				null,
 				dto.getLogradouro(),
 				dto.getNumero(),
-				dto.getComplemento(),
+				dto.getComplemento(),	
 				dto.getBairro(),
 				dto.getCep(),
 				null,

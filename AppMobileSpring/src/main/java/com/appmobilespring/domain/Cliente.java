@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.appmobilespring.domain.enums.Perfil;
 import com.appmobilespring.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +31,8 @@ public class Cliente implements Serializable {
 	private String nome;
 	@Column(unique=true)
 	private String email;
+	@JsonIgnore
+	private String senha;
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
@@ -39,20 +43,27 @@ public class Cliente implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@ElementCollection
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
+		addPerfil(Perfil.CLIENTE);
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String senha, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null)? null: tipo.getCod();
+		this.senha = senha;
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -110,6 +121,18 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(v -> Perfil.toEnum(v)).collect(Collectors.toSet());
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCod());
+	}
 
 	public List<Pedido> getPedidos() {
 		return pedidos;
@@ -117,6 +140,14 @@ public class Cliente implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
