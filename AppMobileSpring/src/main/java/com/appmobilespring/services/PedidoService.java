@@ -15,9 +15,9 @@ import com.appmobilespring.domain.enums.EstadoPagamento;
 import com.appmobilespring.repositories.ItemPedidoRepository;
 import com.appmobilespring.repositories.PagamentoRepository;
 import com.appmobilespring.repositories.PedidoRepository;
+import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
 import com.appmobilespring.services.email.EmailService;
 import com.appmobilespring.services.email.EmailServiceAlternative;
-import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PedidoService {

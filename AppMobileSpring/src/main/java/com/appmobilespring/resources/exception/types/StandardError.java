@@ -1,4 +1,4 @@
-package com.appmobilespring.resources.exception;
+package com.appmobilespring.resources.exception.types;
 
 import java.io.Serializable;
 

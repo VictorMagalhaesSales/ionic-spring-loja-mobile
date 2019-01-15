@@ -1,4 +1,4 @@
-package com.appmobilespring.services.exceptions;
+package com.appmobilespring.resources.exception.types;
 
 public class ObjectNotFoundException extends RuntimeException {
 

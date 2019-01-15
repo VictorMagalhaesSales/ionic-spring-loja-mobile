@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.appmobilespring.domain.Cliente;
 import com.appmobilespring.dto.ClienteDTO;
 import com.appmobilespring.repositories.ClienteRepository;
-import com.appmobilespring.resources.exception.FieldMessage;
+import com.appmobilespring.resources.exception.types.FieldMessage;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO>{
 

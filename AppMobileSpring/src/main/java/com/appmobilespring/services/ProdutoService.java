@@ -13,8 +13,8 @@ import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.domain.Produto;
 import com.appmobilespring.repositories.CategoriaRepository;
 import com.appmobilespring.repositories.ProdutoRepository;
+import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
 import com.appmobilespring.resources.utils.URL;
-import com.appmobilespring.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProdutoService {

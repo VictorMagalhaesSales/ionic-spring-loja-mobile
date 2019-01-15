@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.appmobilespring.domain.Cidade;
 import com.appmobilespring.domain.Cliente;
 import com.appmobilespring.domain.Endereco;
+import com.appmobilespring.domain.enums.Perfil;
 import com.appmobilespring.domain.enums.TipoCliente;
 import com.appmobilespring.dto.ClienteDTO;
 import com.appmobilespring.dto.ClienteNewDTO;
 import com.appmobilespring.repositories.ClienteRepository;
 import com.appmobilespring.repositories.EnderecoRepository;
-import com.appmobilespring.services.exceptions.DataIntegrityException;
-import com.appmobilespring.services.exceptions.ObjectNotFoundException;
+import com.appmobilespring.resources.exception.types.AuthorizationException;
+import com.appmobilespring.resources.exception.types.DataIntegrityException;
+import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
+import com.appmobilespring.security.UserSS;
 
 @Service
 public class ClienteService {
@@ -40,9 +44,10 @@ public class ClienteService {
 	private BCryptPasswordEncoder bCPE;
 	
 	public Cliente find(Integer id) {
+		UserSS user = (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(user != null && !id.equals(user.getId()) && !user.hasRole(Perfil.ADMIN)) throw new AuthorizationException("Acesso negado");
 		Optional<Cliente> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
 	public List<ClienteDTO> findAll(){
@@ -61,13 +66,10 @@ public class ClienteService {
 	public Cliente insert(ClienteNewDTO dto) {
 		Cliente cliente = dtoToCliente(dto);
 		Endereco endereco = dtoToEndereco(dto);
-		
 		cliente.setEnderecos(Arrays.asList(endereco));
-		endereco.setCliente(cliente);
-		
+		endereco.setCliente(cliente);		
 		cliente = repository.save(cliente);
 		endereco = enderecoRepository.save(endereco);
-		
 		return cliente;
 	}
 	

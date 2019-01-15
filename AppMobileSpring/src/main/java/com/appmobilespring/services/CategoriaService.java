@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import com.appmobilespring.domain.Categoria;
 import com.appmobilespring.dto.CategoriaDTO;
 import com.appmobilespring.repositories.CategoriaRepository;
-import com.appmobilespring.services.exceptions.DataIntegrityException;
-import com.appmobilespring.services.exceptions.ObjectNotFoundException;
+import com.appmobilespring.resources.exception.types.DataIntegrityException;
+import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {

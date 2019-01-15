@@ -12,7 +12,7 @@ import com.appmobilespring.domain.Cliente;
 import com.appmobilespring.domain.enums.TipoCliente;
 import com.appmobilespring.dto.ClienteNewDTO;
 import com.appmobilespring.repositories.ClienteRepository;
-import com.appmobilespring.resources.exception.FieldMessage;
+import com.appmobilespring.resources.exception.types.FieldMessage;
 import com.appmobilespring.services.validation.utils.BR;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
