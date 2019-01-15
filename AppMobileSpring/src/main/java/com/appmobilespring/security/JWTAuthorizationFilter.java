@@ -27,7 +27,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	}
 	
 	/*
-	 * Método utilizado para a autenticação do usuário
+	 * Método utilizado para a autorização do usuário
 	 *  */
 	@Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,7 +36,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		String tokenHeader = request.getHeader("Authorization");
 		if(tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
 			UsernamePasswordAuthenticationToken auth = getAuthentication(tokenHeader.substring(7));
-			if(auth != null) SecurityContextHolder.getContext().setAuthentication(auth); // comando de autenticação
+			if(auth != null) SecurityContextHolder.getContext().setAuthentication(auth); // comando de autorização
 		}
 		chain.doFilter(request, response);
 	}
