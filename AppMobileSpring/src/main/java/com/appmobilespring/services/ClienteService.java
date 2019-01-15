@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +43,7 @@ public class ClienteService {
 	private BCryptPasswordEncoder bCPE;
 	
 	public Cliente find(Integer id) {
-		UserSS user = (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserSS user = UserService.authenticated();
 		if(user != null && !id.equals(user.getId()) && !user.hasRole(Perfil.ADMIN)) throw new AuthorizationException("Acesso negado");
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
