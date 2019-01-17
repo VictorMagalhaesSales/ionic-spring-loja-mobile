@@ -61,6 +61,20 @@ public class ClienteService {
 		return listDto;
 	}
 	
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Cliente obj = repository.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
+	}
+	
 	@Transactional // Essa anotação permite que todos os inserts desse método ocorram na mesma transação
 	public Cliente insert(ClienteNewDTO dto) {
 		Cliente cliente = dtoToCliente(dto);
