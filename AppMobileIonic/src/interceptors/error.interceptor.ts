@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from './../config/storage_keys.config';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
@@ -7,11 +8,20 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
+
         .catch((error, caught) => {
             let errorObj = error;
             if (errorObj.error) errorObj = errorObj.error;
             if (!errorObj.status) errorObj = JSON.parse(errorObj);
             console.log(errorObj);
+
+            switch(errorObj.status) {
+                case 403: localStorage.removeItem(STORAGE_KEYS.localUser);
+                break;
+                case 401: localStorage.removeItem(STORAGE_KEYS.localUser);
+                break;
+            }
+
             return Observable.throw(errorObj);
         }) as any;
     }

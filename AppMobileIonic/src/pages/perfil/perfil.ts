@@ -27,7 +27,13 @@ export class PerfilPage {
         .subscribe(
           response => {
             this.cliente = response;
-        })
+        }, error => {
+          if (error.status == 403) {
+            this.navCtrl.setRoot('LoginPage');
+          }
+        });
+    } else {
+      this.navCtrl.setRoot('LoginPage');
     }
     
   }
