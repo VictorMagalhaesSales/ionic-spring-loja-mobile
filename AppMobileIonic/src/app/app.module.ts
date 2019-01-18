@@ -1,4 +1,3 @@
-import { AuthService } from './../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +8,7 @@ import { MyApp } from './app.component';
 
 import { CategoriaService } from './../services/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
+import { AuthService } from './../services/auth.service';
 
 
 @NgModule({

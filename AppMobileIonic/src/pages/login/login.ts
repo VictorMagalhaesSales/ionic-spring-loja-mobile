@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ToastController } from 'ionic-angular';
 
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 
@@ -15,15 +15,29 @@ export class LoginPage {
     email: "",
     senha: ""
   };
-  constructor(public navCtrl: NavController, public authService: AuthService) { }
+  constructor(
+    public navCtrl: NavController, 
+    public authService: AuthService,
+    public toastCtrl: ToastController
+    ) { }
 
   login(){
     this.authService.authenticate(this.credenciais)
       .subscribe(
-        sucess =>  this.navCtrl.setRoot('TabsPage'),
-        error => {}
+        response => {
+          this.authService.successfulLogin(response.headers.get('Authorization'));
+          this.navCtrl.setRoot('TabsPage');
+        },
+        error => {
+          if(error.status == 401)  {
+            const toast = this.toastCtrl.create({
+              message: error.message,
+              duration: 3000
+            });
+            toast.present();
+          }
+        }
       );
-   
   }
 
 }
