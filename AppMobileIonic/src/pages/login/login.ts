@@ -17,8 +17,7 @@ export class LoginPage {
   };
   constructor(
     public navCtrl: NavController, 
-    public authService: AuthService,
-    public toastCtrl: ToastController
+    public authService: AuthService
     ) { }
 
   login(){
@@ -28,15 +27,7 @@ export class LoginPage {
           this.authService.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('TabsPage');
         },
-        error => {
-          if(error.status == 401)  {
-            const toast = this.toastCtrl.create({
-              message: error.message,
-              duration: 3000
-            });
-            toast.present();
-          }
-        }
+        error => {}
       );
   }
 
