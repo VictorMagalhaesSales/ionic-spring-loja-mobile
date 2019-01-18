@@ -1,3 +1,5 @@
+import { AuthService } from './../../services/auth.service';
+import { LocalUser } from './../../models/local_user';
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 
@@ -8,8 +10,13 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class PerfilPage {
 
-  constructor(public navCtrl: NavController) {
+  email: string;
 
+  constructor(public navCtrl: NavController, public authService: AuthService) { }
+
+  ionViewDidLoad(){
+    let localUser: LocalUser = this.authService.getUser();
+    this.email = localUser.email;
   }
 
 }
