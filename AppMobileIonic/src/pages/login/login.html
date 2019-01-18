@@ -1,0 +1,33 @@
+<ion-content>
+    <ion-slides pager>
+        <ion-slide>
+            <img src="assets/imgs/logo_slide.png">
+        </ion-slide>
+
+        <ion-slide>
+            <img src="assets/imgs/texto_slide.png">
+        </ion-slide>
+
+        <ion-slide padding>
+            <img src="assets/imgs/login_slide.png">
+            <ion-list>
+                <ion-item>
+                  <ion-label floating>Email</ion-label>
+                  <ion-input type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label floating>Senha</ion-label>
+                  <ion-input type="password"></ion-input>
+                </ion-item>
+            </ion-list>
+            <button ion-button icon-start block (click)="login()">
+                <ion-icon name="md-log-in"></ion-icon>
+                Login
+            </button>
+            <button ion-button icon-start block outline color="secondary"> 
+                <ion-icon name="ios-person-add"></ion-icon>
+                Registrar
+            </button>
+        </ion-slide>
+      </ion-slides>
+</ion-content>
