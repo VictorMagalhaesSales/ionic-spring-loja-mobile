@@ -2,10 +2,60 @@
     <ion-navbar>
       <ion-title>Meu perfil</ion-title>
     </ion-navbar>
-  </ion-header>
+</ion-header>
   
   
-  <ion-content padding>
-    Email: {{ email}}
-   </ion-content>
+<ion-content>
+  <ion-avatar>
+    <img src="assets/imgs/avatar.jpg" class="circle">
+  </ion-avatar>
+
+  <div class="informacoes">
+    <h1 padding>{{ cliente?.nome }}</h1>
+    <ion-list>
+        <ion-item>
+          <ion-icon name="ios-mail" item-start ></ion-icon>
+          {{ cliente?.email}}
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-icon name="md-call" item-start ></ion-icon>
+            <div *ngFor="let numero of cliente?.telefones; let i = index" [attr.data-index]="i">
+              [ {{ i + 1 }} ]: {{ numero }}
+            </div>
+        </ion-item>
+    </ion-list>
+
+    
+    <ion-list>
+        <ion-item>
+          <ion-icon name="md-card" item-start ></ion-icon>
+          {{ cliente?.cpfOuCnpj}}
+      </ion-item>
+    </ion-list>
+    
+    <ion-list>
+        <ion-item>
+          <ion-icon name="ios-home" item-start ></ion-icon>
+          <ion-grid *ngFor="let endereco of cliente?.enderecos">
+              <ion-row>
+                  <ion-col col-6>Estado: {{ endereco.cidade.estado.nome }}</ion-col>
+                  <ion-col col-6>Logradouro: {{ endereco.logradouro }}</ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-6>Cidade: {{ endereco.cidade.nome }}</ion-col>
+                  <ion-col col-6>CEP: {{ endereco.cep }}</ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-6>Bairro: {{ endereco.bairro}}</ion-col>
+                  <ion-col col-6>Número: {{ endereco.numero }}</ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
   

@@ -1,3 +1,5 @@
+import { ClienteDTO } from './../../models/cliente.dto';
+import { ClienteService } from './../../services/domain/cliente.service';
 import { AuthService } from './../../services/auth.service';
 import { LocalUser } from './../../models/local_user';
 import { Component } from '@angular/core';
@@ -10,13 +12,24 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class PerfilPage {
 
-  email: string;
+  cliente: ClienteDTO;
 
-  constructor(public navCtrl: NavController, public authService: AuthService) { }
+  constructor(
+    public navCtrl: NavController,
+    public authService: AuthService,
+    public clienteService: ClienteService
+    ) { }
 
   ionViewDidLoad(){
     let localUser: LocalUser = this.authService.getUser();
-    this.email = localUser.email;
+    if(localUser && localUser.email){
+      this.clienteService.findByEmail(localUser.email) 
+        .subscribe(
+          response => {
+            this.cliente = response;
+        })
+    }
+    
   }
 
 }
