@@ -11,7 +11,8 @@
   <ion-list>
     <button ion-item *ngFor="let item of items">
       <ion-thumbnail item-start>
-        <img [src]="'assets/imgs/produto.jpg'">
+        <img [src]="'assets/imgs/produto.jpg'" *ngIf="item.nome.startsWith('Produto')">
+        <img src="assets/imgs/{{item.nome}}.jpg" *ngIf="!item.nome.startsWith('Produto')">
       </ion-thumbnail>
       <h2>{{item.nome}}</h2>
       <p>{{item.preco | currency}}</p>
