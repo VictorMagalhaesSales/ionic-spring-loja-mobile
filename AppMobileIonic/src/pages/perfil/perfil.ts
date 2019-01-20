@@ -36,7 +36,7 @@ export class PerfilPage {
     }
   }
 
-  sair(){
+  logout(){
     this.authService.logout();
     this.app.getRootNav().setRoot('LoginPage');
   }

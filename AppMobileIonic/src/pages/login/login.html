@@ -20,13 +20,11 @@
                   <ion-input type="password" [(ngModel)]="credenciais.senha" name="senha"></ion-input>
                 </ion-item>
             </ion-list>
-            <button ion-button icon-start block (click)="login()" color="secondary">
-                <ion-icon name="md-log-in"></ion-icon>
-                Login
+            <button ion-button block (click)="login()" color="secondary">
+                <ion-icon name="md-log-in"></ion-icon> Login
             </button>
-            <button ion-button icon-start block outline color="secondary"> 
-                <ion-icon name="ios-person-add"></ion-icon>
-                Registrar
+            <button ion-button block (click)="signup()" outline color="secondary"> 
+                <ion-icon name="ios-person-add"></ion-icon> Registrar
             </button>
         </ion-slide>
       </ion-slides>
