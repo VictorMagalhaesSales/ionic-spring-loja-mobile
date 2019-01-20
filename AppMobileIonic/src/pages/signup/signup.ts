@@ -1,5 +1,6 @@
+import { ClienteService } from './../../services/domain/cliente.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CidadeDTO } from './../../models/cidade.dto';
@@ -23,7 +24,9 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public toastCtrl: ToastController) {
       this.buildForm();
   }
  
@@ -68,7 +71,16 @@ export class SignupPage {
   }
 
   signupUser(){
-    
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.navCtrl.pop();
+        const toast = this.toastCtrl.create({
+          message: "Usuário cadastrado com sucesso",
+          duration: 3000
+        });
+        toast.present();
+      },
+      error => {});
   }
 
 }

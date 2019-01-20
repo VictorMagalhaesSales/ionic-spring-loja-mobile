@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 import { ToastController } from 'ionic-angular';
+
 import { STORAGE_KEYS } from './../config/storage_keys.config';
+import { FieldMessage } from '../models/fieldmessage';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -20,7 +22,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                     break;
                     case 404: this.buildToast('Página não encontrada');
                     break;
-                    default: this.buildToast('Erro ' + error.status + ': ' + error.message);
+                    case 422: this.buildToast(this.listErrorsValidation(error.errors));
+                    break;
+                    default: this.buildToast(error.message);
                     break;
 
                 }
@@ -32,9 +36,19 @@ export class ErrorInterceptor implements HttpInterceptor {
     buildToast(message: string, duration: number = 3000){
         const toast = this.toastCtrl.create({
             message: message,
-            duration: duration
+            duration: duration,
+            showCloseButton: true,
+            closeButtonText: "fechar"
           });
           toast.present();
+    }
+
+    private listErrorsValidation(messages : FieldMessage[]){
+        let errors : string = '';
+        for (var i=0; i<messages.length; i++) {
+            errors += ' • ' + messages[i].message + '! ';
+        }
+        return errors;
     }
 }
 
