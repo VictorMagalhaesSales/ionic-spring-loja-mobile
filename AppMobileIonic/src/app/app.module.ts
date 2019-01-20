@@ -11,6 +11,7 @@ import { ErrorInterceptorProvider } from '../interceptors/error.interceptor';
 import { AuthService } from './../services/auth.service';
 import { AuthInterceptorProvider } from './../interceptors/auth.interceptor';
 import { ClienteService } from './../services/domain/cliente.service';
+import { ProdutoService } from './../services/domain/produto.service';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ClienteService } from './../services/domain/cliente.service';
     ErrorInterceptorProvider,
     AuthService,
     ClienteService,
+    ProdutoService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -28,4 +28,8 @@ export class CategoriasPage {
         );
   }
 
+  showProdutos(categoriaId: string) {
+    this.navCtrl.push('ProdutosPage', {categoriaId: categoriaId});    
+  }
+
 }

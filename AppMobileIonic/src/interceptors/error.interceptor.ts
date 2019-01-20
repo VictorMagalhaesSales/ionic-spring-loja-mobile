@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             message: message,
             duration: duration,
             showCloseButton: true,
-            closeButtonText: "fechar"
+            closeButtonText: "Fechar"
           });
           toast.present();
     }

@@ -4,9 +4,8 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content class="card-background-page" padding>
-    <div *ngFor="let categoria of listCategoria" >
+    <div *ngFor="let categoria of listCategoria" (click)="showProdutos(categoria.id)">
       <ion-card>
         <img src="assets/imgs/{{categoria.nome}}.jpg"/>
         <div class="card-title">{{categoria.nome}}</div>
