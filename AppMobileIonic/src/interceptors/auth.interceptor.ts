@@ -1,9 +1,8 @@
 import { API_CONFIG } from './../config/api.config';
 import { AuthService } from './../services/auth.service';
 import { LocalUser } from './../models/local_user';
-import { ErrorInterceptor } from './error.interceptor';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 
 @Injectable()
