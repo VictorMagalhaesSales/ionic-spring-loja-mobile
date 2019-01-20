@@ -12,15 +12,15 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
             .catch((error, caught) => {
-                error = JSON.parse(error.error);
+                error
+                if(error.error) error = error.error;
                 console.log(error);
-
                 switch(error.status) {
                     case 403: localStorage.removeItem(STORAGE_KEYS.localUser);
                     break;
-                    case 401: this.erro401(error);
+                    case 404: this.buildToast('Página não encontrada');
                     break;
-                    default: this.errorDefault(error);
+                    default: this.buildToast('Erro ' + error.status + ': ' + error.message);
                     break;
 
                 }
@@ -29,23 +29,13 @@ export class ErrorInterceptor implements HttpInterceptor {
             }) as any;
     }
 
-    erro401(error: any){
+    buildToast(message: string, duration: number = 3000){
         const toast = this.toastCtrl.create({
-            message: error.message,
-            duration: 3000
-        });
-        toast.present();
-    }
-
-    errorDefault(error: any): void{
-        const toast = this.toastCtrl.create({
-            message: 'Erro ' + error.status + ': ' + error.message,
-            duration: 3000
+            message: message,
+            duration: duration
           });
           toast.present();
     }
-
-
 }
 
 export const ErrorInterceptorProvider = {

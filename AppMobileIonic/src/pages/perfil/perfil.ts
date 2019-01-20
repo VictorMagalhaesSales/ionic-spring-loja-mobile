@@ -28,9 +28,7 @@ export class PerfilPage {
           response => {
             this.cliente = response;
         }, error => {
-          if (error.status == 403) {
-            this.navCtrl.setRoot('LoginPage');
-          }
+          if (error.status == 403) this.navCtrl.setRoot('LoginPage');
         });
     } else {
       this.navCtrl.setRoot('LoginPage');

@@ -12,6 +12,6 @@ export class ClienteService {
     constructor(public http: HttpClient, public authService: AuthService) {}
 
     findByEmail(email: string): Observable<ClienteDTO>{
-        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientess/email?value=${email}`);
+        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 }
