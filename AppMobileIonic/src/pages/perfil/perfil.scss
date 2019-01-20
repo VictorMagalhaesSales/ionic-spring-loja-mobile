@@ -10,8 +10,22 @@ page-perfil {
         ion-item {
             font-size: 12px !important;
         }
+        h1 {
+            padding-top: 40px;
+            padding-left: 20px;
+            margin-bottom: -10px;
+        }
+        p {
+            padding-left: 20px;
+            padding-bottom: 30px;
+        }
     }
 
-
+    img {
+        float: right;
+        position: static;
+        border: 10px solid transparent;
+        margin-left: 20px;
+    }
 
 }

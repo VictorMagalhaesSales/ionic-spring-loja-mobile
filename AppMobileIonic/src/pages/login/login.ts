@@ -37,7 +37,8 @@ export class LoginPage {
         this.authService.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('TabsPage');
       },
-      error => {});  
+      error => {}
+      );  
   }
 
 }

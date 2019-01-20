@@ -1,6 +1,7 @@
 <ion-header>
     <ion-navbar>
       <ion-title>Meu perfil</ion-title>
+      <button ion-button clear>Sair</button>
     </ion-navbar>
 </ion-header>
   
@@ -11,14 +12,8 @@
   </ion-avatar>
 
   <div class="informacoes">
-    <h1 padding>{{ cliente?.nome }}</h1>
-    <hr>
-    <ion-list>
-        <ion-item>
-          <ion-icon name="ios-mail" item-start ></ion-icon>
-          {{ cliente?.email}}
-      </ion-item>
-    </ion-list>
+    <h1>{{cliente?.nome}}</h1>
+    <p>{{cliente?.email}}</p>
     <hr>
     <ion-list>
         <ion-item>
