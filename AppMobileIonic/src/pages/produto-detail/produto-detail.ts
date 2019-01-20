@@ -6,30 +6,27 @@ import { ProdutoService } from '../../services/domain/produto.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-produtos',
-  templateUrl: 'produtos.html',
+  selector: 'page-produto-detail',
+  templateUrl: 'produto-detail.html',
 })
-export class ProdutosPage {
+export class ProdutoDetailPage {
 
-  items : ProdutoDTO[];
+  item: ProdutoDTO;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public produtoService: ProdutoService) {
   }
-
-  ionViewDidLoad() {
-    let categoriaId = this.navParams.get('categoriaId');
-    this.produtoService.findByCategoria(categoriaId)
+  
+  ionViewCanEnter() {
+    let produtoId: string = this.navParams.get('produtoId');
+    this.produtoService.findById(produtoId)
       .subscribe(response => {
-        this.items = response['content'];
+        this.item = response;
       },
-      error => {});
-  }
-
-  showDetail(produtoId : string) {
-    this.navCtrl.push('ProdutoDetailPage', {produtoId: produtoId});
+      error => {}
+    );
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+        <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Produtos</ion-title>
   </ion-navbar>
@@ -9,7 +9,7 @@
   
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let item of items">
+    <button ion-item *ngFor="let item of items" (click)="showDetail(item.id)">
       <ion-thumbnail item-start>
         <img [src]="'assets/imgs/produto.jpg'" *ngIf="item.nome.startsWith('Produto')">
         <img src="assets/imgs/{{item.nome}}.jpg" *ngIf="!item.nome.startsWith('Produto')">
