@@ -20,6 +20,10 @@ export class AuthService {
         return this.http.post( `${API_CONFIG.baseUrl}/login`, credenciais, {observe: 'response', responseType: 'text'});
     }
 
+    refreshToken() {
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`,{}, {observe: 'response', responseType: 'text'});
+    }
+
     successfulLogin(authorizationValue: string) {
         let token = authorizationValue.substring(7);
         let user : LocalUser = {
@@ -34,5 +38,6 @@ export class AuthService {
     }
 
     logout() {
+        localStorage.removeItem(STORAGE_KEYS.localUser);
     }
 }

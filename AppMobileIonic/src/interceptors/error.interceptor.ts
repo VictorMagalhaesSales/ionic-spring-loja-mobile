@@ -12,8 +12,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
             .catch((error, caught) => {
-                error
                 if(error.error) error = error.error;
+                if(!error.status) error = JSON.parse(error);
                 console.log(error);
                 switch(error.status) {
                     case 403: localStorage.removeItem(STORAGE_KEYS.localUser);

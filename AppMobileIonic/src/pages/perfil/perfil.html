@@ -39,7 +39,8 @@
     <ion-list>
         <ion-item>
           <ion-icon name="ios-home" item-start ></ion-icon>
-          <ion-grid *ngFor="let endereco of cliente?.enderecos">
+          <ion-grid *ngFor="let endereco of cliente?.enderecos; let i = index">
+              <h2>Endereço {{i+1}}</h2>
               <ion-row>
                   <ion-col col-6>Estado: {{ endereco.cidade.estado.nome }}</ion-col>
                   <ion-col col-6>Logradouro: {{ endereco.logradouro }}</ion-col>
