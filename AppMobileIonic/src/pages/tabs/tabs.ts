@@ -11,7 +11,5 @@ export class TabsPage {
   carrinho = 'CarrinhoPage';
   perfil = 'PerfilPage';
 
-  constructor() {
-
-  }
+  constructor() { }
 }

@@ -3,7 +3,7 @@ import { ClienteService } from './../../services/domain/cliente.service';
 import { AuthService } from './../../services/auth.service';
 import { LocalUser } from './../../models/local_user';
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, App } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -16,6 +16,7 @@ export class PerfilPage {
 
   constructor(
     public navCtrl: NavController,
+    public app: App,
     public authService: AuthService,
     public clienteService: ClienteService
     ) { }
@@ -33,7 +34,11 @@ export class PerfilPage {
     } else {
       this.navCtrl.setRoot('LoginPage');
     }
-    
+  }
+
+  sair(){
+    this.authService.logout();
+    this.app.getRootNav().setRoot('LoginPage');
   }
 
 }

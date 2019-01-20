@@ -1,7 +1,10 @@
 <ion-header>
     <ion-navbar>
-      <ion-title>Meu perfil</ion-title>
-      <button ion-button clear>Sair</button>
+      <ion-title>
+            <button ion-button round>Editar</button>
+            <button ion-button color="dark" clear disabled>Meu perfil</button>
+            <button ion-button color="danger" round (click)="sair()">Sair</button>
+        </ion-title>
     </ion-navbar>
 </ion-header>
   

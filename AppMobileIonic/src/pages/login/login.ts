@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ToastController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 
@@ -12,8 +12,8 @@ import { CredenciaisDTO } from './../../models/credenciais.dto';
 export class LoginPage {
 
   credenciais : CredenciaisDTO = {
-    email: "",
-    senha: ""
+    email: "victormagalhaessales@gmail.com",
+    senha: "123"
   };
   constructor(
     public navCtrl: NavController, 
