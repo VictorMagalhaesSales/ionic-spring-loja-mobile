@@ -3,33 +3,36 @@ page-perfil {
     ion-header {
         text-align: center;
       }
-    
-    .circle {
-        width: 30%;
-        border-radius: 100%;
-        margin: 25px auto 0 auto;
-    }
 
     .informacoes {
+        .cabecalho {
+            background-color: turquoise;
+            color: white;
+        }
+        .circle {
+            width: 30%;
+            border-radius: 100%;
+            float: right;
+            position: static;
+            border: 10px solid transparent;
+            margin-left: 20px;
+        }
         ion-item {
             font-size: 12px !important;
         }
         h1 {
-            padding-top: 40px;
+            padding-top: 30px;
             padding-left: 20px;
-            margin-bottom: -10px;
+            padding-bottom: -10px;
         }
         p {
             padding-left: 20px;
             padding-bottom: 30px;
+            font-size: 13px !important;
         }
-    }
-
-    img {
-        float: right;
-        position: static;
-        border: 10px solid transparent;
-        margin-left: 20px;
+        h2{
+            font-weight: 600;
+        }
     }
 
 }

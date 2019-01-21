@@ -8,19 +8,19 @@
   </ion-header>
   
   <ion-content padding>
-    <ion-fab bottom right>
+    <ion-fab top right>
       <button navPush="CarrinhoPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
     </ion-fab>
     <ion-card>
         <img src="assets/imgs/produto.jpg" *ngIf="item?.nome.startsWith('Produto')"/>
-        <img [src]="'assets/imgs/'+item?.nome+'.jpg'" *ngIf="!item?.nome.startsWith('Produto') && item"/>
+        <img [src]="'assets/imgs/'+item?.nome+'.jpg'" *ngIf="!item?.nome.startsWith('Produto') && item" height="300px"/>
+        <hr>
       <ion-card-content>
-        <ion-card-title>
-          {{item?.nome}}
-          </ion-card-title>
-        <p>
-          {{item?.preco | currency}}
-        </p>  
+        <h2 style="font-size: 20px"><b>{{item?.nome}}</b></h2><br>
+        <p style="color: green;"><ion-icon name="ios-card"></ion-icon> 10x de {{item?.preco / 10}} sem juros</p>
+        <p style="font-size: 30px">R{{item?.preco | currency}}</p>
+        <p style="color: green;"><ion-icon name="ios-return-left"></ion-icon> Devolução grátis</p> 
+        <p>Você tem 15 dias a partir do recebimento</p>  
       </ion-card-content>
     </ion-card>
   

@@ -43,8 +43,7 @@ export class CarrinhoPage {
   }  
 
   continuarComprando() {
-    let page: string = this.navCtrl.root;
-    if(page == 'CarrinhoPage') this.navCtrl.parent.select(0);
-    else if(page == 'CategoriasPage') this.navCtrl.pop();
+    if(this.navCtrl.root == 'CarrinhoPage') this.navCtrl.parent.select(0);
+    else if(this.navCtrl.root == 'CategoriasPage') this.navCtrl.pop();
   }
 }

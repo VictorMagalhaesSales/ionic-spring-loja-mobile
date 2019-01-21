@@ -28,6 +28,7 @@ export class PerfilPage {
         .subscribe(
           response => {
             this.cliente = response;
+            console.log(this.cliente);
         }, error => {
           if(error.status == 403) this.app.getRootNav().setRoot('LoginPage');
         });
