@@ -1,3 +1,4 @@
+import { CartService } from './../services/domain/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +37,7 @@ import { ProdutoService } from './../services/domain/produto.service';
     AuthService,
     ClienteService,
     ProdutoService,
+    CartService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

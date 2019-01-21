@@ -28,8 +28,8 @@ export class CategoriasPage {
         );
   }
 
-  showProdutos(categoriaId: string) {
-    this.navCtrl.push('ProdutosPage', {categoriaId: categoriaId});    
+  showProdutos(categoria: CategoriaDTO) {
+    this.navCtrl.push('ProdutosPage', {categoria: JSON.stringify(categoria)});    
   }
 
 }

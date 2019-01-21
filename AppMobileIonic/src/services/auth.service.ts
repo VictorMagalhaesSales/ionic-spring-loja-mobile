@@ -1,3 +1,4 @@
+import { CartService } from './domain/cart.service';
 import { STORAGE_KEYS } from './../config/storage_keys.config';
 import { LocalUser } from './../models/local_user';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +14,7 @@ export class AuthService {
 
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient){}
+    constructor(public http: HttpClient, public cartService: CartService){}
 
     authenticate(credenciais: CredenciaisDTO): Observable<any>{
         // O 'observe: response' especifica que a requisição retorna um objeto do tipo response. Dessa forma, poderemos acessar o header
@@ -31,6 +32,7 @@ export class AuthService {
             email: this.jwtHelper.decodeToken(token).sub
         };
         localStorage.setItem(STORAGE_KEYS.localUser, JSON.stringify(user));
+        this.cartService.createOrClearCart();
     }
 
     getUser(): LocalUser{
@@ -39,5 +41,6 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem(STORAGE_KEYS.localUser);
+        localStorage.removeItem(STORAGE_KEYS.cart);
     }
 }

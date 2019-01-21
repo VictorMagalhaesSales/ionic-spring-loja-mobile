@@ -21,7 +21,7 @@ export class PerfilPage {
     public clienteService: ClienteService
     ) { }
 
-  ionViewDidLoad(){
+  ionViewWillEnter(){
     let localUser: LocalUser = this.authService.getUser();
     if(localUser && localUser.email){
       this.clienteService.findByEmail(localUser.email) 
@@ -29,10 +29,10 @@ export class PerfilPage {
           response => {
             this.cliente = response;
         }, error => {
-          if (error.status == 403) this.navCtrl.setRoot('LoginPage');
+          if(error.status == 403) this.app.getRootNav().setRoot('LoginPage');
         });
     } else {
-      this.navCtrl.setRoot('LoginPage');
+      this.app.getRootNav().setRoot('LoginPage');
     }
   }
 

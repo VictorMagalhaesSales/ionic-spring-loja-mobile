@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Categorias</ion-title>
+    <ion-title><ion-icon name="md-list"></ion-icon> Categorias</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page" padding>
-    <div *ngFor="let categoria of listCategoria" (click)="showProdutos(categoria.id)">
+    <div *ngFor="let categoria of listCategoria" (click)="showProdutos(categoria)">
       <ion-card>
         <img src="assets/imgs/{{categoria.nome}}.jpg" height="170px"/>
         <div class="card-title">{{categoria.nome}}</div>

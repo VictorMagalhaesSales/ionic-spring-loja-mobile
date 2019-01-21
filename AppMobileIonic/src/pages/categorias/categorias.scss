@@ -1,5 +1,10 @@
-.card-background-page {
+page-categorias {
 
+  ion-header {
+    text-align: center;
+  }
+
+  .card-background-page {
     ion-card {
       position: relative;
       text-align: center;
@@ -27,5 +32,6 @@
         filter: blur(1px);
       }
     }
-  
   }
+  
+}

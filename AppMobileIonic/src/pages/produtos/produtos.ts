@@ -1,3 +1,4 @@
+import { CategoriaDTO } from './../../models/categoria.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -12,6 +13,7 @@ import { ProdutoService } from '../../services/domain/produto.service';
 export class ProdutosPage {
 
   items : ProdutoDTO[];
+  categoria: CategoriaDTO;
 
   constructor(
     public navCtrl: NavController, 
@@ -20,8 +22,8 @@ export class ProdutosPage {
   }
 
   ionViewDidLoad() {
-    let categoriaId = this.navParams.get('categoriaId');
-    this.produtoService.findByCategoria(categoriaId)
+    this.categoria = JSON.parse(this.navParams.get('categoria'));
+    this.produtoService.findByCategoria(this.categoria.id)
       .subscribe(response => {
         this.items = response['content'];
       },

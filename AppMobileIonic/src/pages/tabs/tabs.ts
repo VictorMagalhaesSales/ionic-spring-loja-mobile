@@ -1,5 +1,5 @@
-import { IonicPage } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { IonicPage, Tabs } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
 
 @IonicPage()
 @Component({
@@ -7,9 +7,11 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
+  @ViewChild('myTabs') tabRef: Tabs;
+
   categorias = 'CategoriasPage';
   carrinho = 'CarrinhoPage';
   perfil = 'PerfilPage';
 
-  constructor() { }
+  constructor() {}
 }

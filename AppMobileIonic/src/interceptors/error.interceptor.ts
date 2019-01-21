@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 import { ToastController, App, Nav } from 'ionic-angular';
-
-import { STORAGE_KEYS } from './../config/storage_keys.config';
 import { FieldMessage } from '../models/fieldmessage';
 
 @Injectable()
@@ -21,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if(!error.status) error = JSON.parse(error);
                 console.log(error);
                 switch(error.status) {
-                    case 403: this.error403();
+                    case 403: this.authService.logout();
                     break;
                     case 404: this.buildToast('Página não encontrada');
                     break;
@@ -34,12 +32,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                 return Observable.throw(error);
             }) as any;
-    }
-
-    error403() {
-        this.authService.logout();
-        console.log(this.nav.getActive().component.name); 
-        this.app.getRootNav().setRoot('LoginPage');
     }
 
     buildToast(message: string, duration: number = 3000){
