@@ -46,4 +46,8 @@ export class CarrinhoPage {
     if(this.navCtrl.root == 'CarrinhoPage') this.navCtrl.parent.select(0);
     else if(this.navCtrl.root == 'CategoriasPage') this.navCtrl.pop();
   }
+
+  checkout() {
+    this.navCtrl.push('PickAddressPage');
+  }
 }
