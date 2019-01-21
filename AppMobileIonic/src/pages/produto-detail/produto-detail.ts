@@ -37,8 +37,7 @@ export class ProdutoDetailPage {
 
   addToCart(produto: ProdutoDTO) {
     this.cartService.addProduto(produto);
-    this.navCtrl.popToRoot();
-    this.navCtrl.parent.select(1);
+    this.navCtrl.push('CarrinhoPage');
   }
 
 }

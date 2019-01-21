@@ -8,6 +8,9 @@
   </ion-header>
   
   <ion-content padding>
+    <ion-fab bottom right>
+      <button navPush="CarrinhoPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
+    </ion-fab>
     <ion-card>
         <img src="assets/imgs/produto.jpg" *ngIf="item?.nome.startsWith('Produto')"/>
         <img [src]="'assets/imgs/'+item?.nome+'.jpg'" *ngIf="!item?.nome.startsWith('Produto') && item"/>
