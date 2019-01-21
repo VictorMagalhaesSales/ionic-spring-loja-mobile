@@ -7,9 +7,10 @@
 <ion-content class="card-background-page" padding>
     <div *ngFor="let categoria of listCategoria" (click)="showProdutos(categoria.id)">
       <ion-card>
-        <img src="assets/imgs/{{categoria.nome}}.jpg"/>
+        <img src="assets/imgs/{{categoria.nome}}.jpg" height="170px"/>
         <div class="card-title">{{categoria.nome}}</div>
         <div class="card-subtitle">Clique para pesquisar</div>
       </ion-card> 
+      <hr>
     </div>
  </ion-content>

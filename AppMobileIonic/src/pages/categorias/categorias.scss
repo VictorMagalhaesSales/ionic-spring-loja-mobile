@@ -3,23 +3,29 @@
     ion-card {
       position: relative;
       text-align: center;
-    }
   
-    .card-title {
-      position: absolute;
-      top: 36%;
-      font-size: 2.0em;
-      width: 100%;
-      font-weight: bold;
-      color: #fff;
-    }
-  
-    .card-subtitle {
-      font-size: 1.0em;
-      position: absolute;
-      top: 52%;
-      width: 100%;
-      color: #fff;
+      .card-title {
+        position: absolute;
+        top: 36%;
+        font-size: 2.0em;
+        width: 100%;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 3px 3px 10px rgb(61, 61, 61);
+      }
+    
+      .card-subtitle {
+        font-size: 1.0em;
+        position: absolute;
+        top: 52%;
+        width: 100%;
+        color: #fff;
+        text-shadow: 3px 3px 10px rgb(61, 61, 61);
+      }
+
+      img {
+        filter: blur(1px);
+      }
     }
   
   }
