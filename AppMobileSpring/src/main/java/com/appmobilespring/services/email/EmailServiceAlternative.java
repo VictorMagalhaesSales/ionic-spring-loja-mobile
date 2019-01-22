@@ -18,6 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.appmobilespring.domain.Pedido;
+import com.appmobilespring.dto.ClienteNewDTO;
 
 @Service
 public class EmailServiceAlternative {
@@ -44,7 +45,20 @@ public class EmailServiceAlternative {
 		smm.setSubject("Pedido " + pedido.getId() + " confirmado com sucesso!");
 		smm.setText(pedido.toString());
 		
-		LOG.info("Simulando envio de email alternativo...");
+		LOG.info("Envio de email alternativo(pedido)...");
+		mailSender.send(smm);
+		LOG.info("Email enviado");
+	}
+	
+	public void sendEmail(ClienteNewDTO cliente) {
+		SimpleMailMessage smm = new SimpleMailMessage();
+		smm.setFrom(sender);
+		smm.setTo(cliente.getEmail());
+		smm.setSentDate(new Date(System.currentTimeMillis()));
+		smm.setSubject("Conta cadastrada com sucesso");
+		smm.setText("Nome: " + cliente.getNome() + ", Email: " + cliente.getEmail() + ", Senha: " + cliente.getSenha());
+		
+		LOG.info("Envio de email alternativo(cliente)...");
 		mailSender.send(smm);
 		LOG.info("Email enviado");
 	}
@@ -53,6 +67,12 @@ public class EmailServiceAlternative {
 		Context context = new Context();
 		context.setVariable("pedido", pedido);
 		return templateEngine.process("email/confirmacaoPedido", context);
+	}
+	
+	private String htmlFromTemplateCliente(ClienteNewDTO cliente) {
+		Context context = new Context();
+		context.setVariable("cliente", cliente);
+		return templateEngine.process("email/clienteAdicionado", context);
 	}
 	
 	public void sendHtmlEmail(Pedido pedido) throws MessagingException {
@@ -64,7 +84,21 @@ public class EmailServiceAlternative {
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(pedido), true);
 
-		LOG.info("Simulando envio de email alternativo HTML...");
+		LOG.info("Envio de email alternativo HTML(pedido)...");
+		javaMailSender.send(mm);
+		LOG.info("Email enviado");
+	}
+	
+	public void sendHtmlEmail(ClienteNewDTO cliente) throws MessagingException {
+		MimeMessage mm = javaMailSender.createMimeMessage();
+		MimeMessageHelper mmh = new MimeMessageHelper(mm, true);
+		mmh.setTo(cliente.getEmail());
+		mmh.setFrom(sender);
+		mmh.setSubject("Conta cadastrada com sucesso");
+		mmh.setSentDate(new Date(System.currentTimeMillis()));
+		mmh.setText(htmlFromTemplateCliente(cliente), true);
+
+		LOG.info("Envio de email alternativo HTML(cliente)...");
 		javaMailSender.send(mm);
 		LOG.info("Email enviado");
 	}

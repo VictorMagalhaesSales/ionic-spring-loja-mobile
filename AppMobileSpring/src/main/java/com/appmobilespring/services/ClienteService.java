@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ import com.appmobilespring.resources.exception.types.AuthorizationException;
 import com.appmobilespring.resources.exception.types.DataIntegrityException;
 import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
 import com.appmobilespring.security.UserSS;
+import com.appmobilespring.services.email.EmailServiceAlternative;
 
 @Service
 public class ClienteService {
@@ -41,6 +44,9 @@ public class ClienteService {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCPE;
+	
+	@Autowired
+	private EmailServiceAlternative emailServiceAlternative;
 	
 	public Cliente find(Integer id) {
 		UserSS user = UserService.authenticated();
@@ -83,6 +89,11 @@ public class ClienteService {
 		endereco.setCliente(cliente);		
 		cliente = repository.save(cliente);
 		endereco = enderecoRepository.save(endereco);
+		try {
+			emailServiceAlternative.sendHtmlEmail(dto);
+		} catch (MessagingException e) {
+			emailServiceAlternative.sendEmail(dto);
+		}
 		return cliente;
 	}
 	
