@@ -3,13 +3,12 @@
       <ion-title>
             <ion-grid>
                 <ion-row style="height: 30px !important;">
-                    <ion-col col-2>
-                    <ion-icon name="md-contact"></ion-icon>  <label  style="color: white !important; opacity: 1; font-size: 20px; margin-top: 50px !important;">Meu perfil</label>
-                    </ion-col>
-                    <ion-col col-4></ion-col>
                     <ion-col col-3>
                         <label  style="color: white!important; font-size: 13px; font-weight: bold;" (click)="editar()">EDITAR</label>
                     </ion-col>
+                    <ion-col col-6>
+                            <ion-icon name="md-contact"></ion-icon>  <label  style="color: white !important; opacity: 1; font-size: 20px;">Meu perfil</label>
+                            </ion-col>
                     <ion-col col-3>
                         <label  style="color: white !important; font-size: 13px; font-weight: bold;" (click)="logout()">SAIR</label>
                     </ion-col>
@@ -84,7 +83,7 @@
     </ion-grid>
   </div>
     <ion-fab bottom right>
-        <button navPush="PedidosPage" ion-fab mini><ion-icon name="md-reorder"></ion-icon></button>
+        <button ion-fab mini (click)="pagePedidos()"><ion-icon name="logo-buffer"></ion-icon></button>
     </ion-fab>
 </ion-content>
   

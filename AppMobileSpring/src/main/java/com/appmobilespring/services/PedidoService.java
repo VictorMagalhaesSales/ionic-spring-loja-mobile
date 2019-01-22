@@ -1,6 +1,7 @@
 package com.appmobilespring.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -89,6 +90,10 @@ public class PedidoService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		Cliente cliente =  clienteService.find(user.getId());
 		return pedidoRepository.findByCliente(cliente, pageRequest);
+	}
+
+	public List<Pedido> findByCliente(Integer id) {
+		return this.pedidoRepository.findByCliente(this.clienteService.find(id));
 	}
 
 }

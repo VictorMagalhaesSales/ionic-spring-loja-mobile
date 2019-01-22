@@ -1,5 +1,7 @@
 package com.appmobilespring.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,11 @@ public class PedidoResource {
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping("cliente/{id}")
+	public ResponseEntity<List<Pedido>> findByCliente(@PathVariable Integer id) {
+		return ResponseEntity.ok().body(service.findByCliente(id));
 	}
 	
 	@PostMapping

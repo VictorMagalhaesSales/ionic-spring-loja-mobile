@@ -52,4 +52,8 @@ export class PerfilPage {
     this.app.getRootNav().setRoot('LoginPage');
   }
 
+  pagePedidos(){
+    this.navCtrl.push('PedidosPage', {clienteId: this.cliente.id});
+  }
+
 }

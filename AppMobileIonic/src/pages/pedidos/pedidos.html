@@ -1,12 +1,58 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Meus pedidos</ion-title>
+    <ion-title><ion-icon name="logo-buffer"></ion-icon> Meus pedidos</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <div class="div" *ngFor="let pedido of listPedidos">
+    <div class="cab">
+        <h4><b>Código do pedido: {{pedido.id}}</b></h4>
+    </div>
+    <div class="pedido">
+        <ion-row>
+          <ion-col>
+            <b>Data:</b>  {{ pedido.instante}}
+          </ion-col>
+          <ion-col>
+            <b>Pagamento:</b> {{ pedido.pagamento['@type'] == 'pagamentoComCartao' ? 'Cartão(' + pedido.pagamento.numeroDeParcelas + 'x)': 'Boleto' }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row><ion-col><b>Endereço de entrega:</b></ion-col></ion-row>
+        <div class="diminuirFonte">
+          <ion-row>
+            <ion-col><b>Logradouro:</b><br>{{ pedido.enderecoDeEntrega.logradouro }}</ion-col>
+            <ion-col><b>Estado:</b><br>{{ pedido.enderecoDeEntrega.cidade.estado.nome }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><b>CEP:</b><br>{{ pedido.enderecoDeEntrega.cep }}
+            </ion-col><ion-col><b>Cidade:</b><br>{{ pedido.enderecoDeEntrega.cidade.nome }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><b>Número:</b><br>{{ pedido.enderecoDeEntrega.numero }}
+            </ion-col><ion-col><b>Bairro:</b><br>{{ pedido.enderecoDeEntrega.bairro }}</ion-col>
+          </ion-row>
+        </div>
+        
+        <ion-row><ion-col><b>Itens:</b></ion-col></ion-row> 
+        <div class="diminuirFonte" *ngFor="let item of pedido.itens" >
+            <ion-row>
+              <ion-col><b>Nome:</b><br>{{ item.produto.nome }}</ion-col>
+              <ion-col><b>Quantia:</b><br>{{ item.quantidade }}</ion-col>
+              <ion-col><b>Total:</b><br>R${{ item.subTotal }},00</ion-col>
+            </ion-row>
+          </div>
+    </div>
+    <div class="cab1">
+      <ion-grid>
+        <ion-row>
+          
+          <ion-col><h5><b>Total: </b>R$ {{ pedido.valorTotal }},00</h5></ion-col>
+          <ion-col><h5><b> Estado: </b>{{ pedido.pagamento.estado | lowercase }}</h5></ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 </ion-content>

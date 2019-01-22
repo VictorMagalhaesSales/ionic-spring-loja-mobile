@@ -11,4 +11,8 @@ export class PedidoService {
     insert(obj: PedidoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/pedidos`, obj, {observe: 'response',responseType: 'text'});
     }
+
+    findByCliente(clienteId: number){
+        return this.http.get(`${API_CONFIG.baseUrl}/pedidos/cliente/${clienteId}`);
+    }
 }
