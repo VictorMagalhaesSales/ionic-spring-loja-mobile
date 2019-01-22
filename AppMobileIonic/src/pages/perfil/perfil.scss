@@ -5,6 +5,8 @@ page-perfil {
       }
 
     .informacoes {
+        margin-top: -20px;
+
         .cabecalho {
             background-color: turquoise;
             color: white;
@@ -14,25 +16,46 @@ page-perfil {
             border-radius: 100%;
             float: right;
             position: static;
-            border: 10px solid transparent;
+            border: 7px solid turquoise;
             margin-left: 20px;
+            margin-bottom: -10px;
         }
         ion-item {
             font-size: 12px !important;
         }
         h1 {
-            padding-top: 30px;
+            padding-top: 20px;
             padding-left: 20px;
-            padding-bottom: -10px;
+            margin-bottom: -15px;
         }
         p {
-            padding-left: 20px;
-            padding-bottom: 30px;
             font-size: 13px !important;
+            padding-left: 20px;
+            padding-bottom: 20px;
         }
-        h2{
-            font-weight: 600;
+        h3{
+            margin-top: -13px;
+            color: #16a085;
         }
+    }
+
+    .telcpf {
+        height: 100px;
+    }
+    .tel {
+        height: 100% !important;
+    }
+    .cpf {
+        height: 100% !important;
+    }
+
+    hr {
+        background-color: red !important;
+        color: red !important;
+    }
+
+    .gridEndereco {
+        padding-top: -0px;
     }
 
 }

@@ -15,8 +15,7 @@ export class CategoriasPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public categoriaService: CategoriaService
-    ) {
+    public categoriaService: CategoriaService) {
   }
 
   

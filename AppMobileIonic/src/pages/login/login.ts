@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, LoadingController } from 'ionic-angular';
 
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 
@@ -17,32 +17,45 @@ export class LoginPage {
   };
   constructor(
     public navCtrl: NavController, 
-    public authService: AuthService
+    public authService: AuthService,
+    public loadingCtrl: LoadingController
     ) { }
 
   login(){
+    let loader = this.presentLoading();
     this.authService.authenticate(this.credenciais)
       .subscribe(
         response => {
+          loader.dismiss();
           this.authService.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('TabsPage');
         },
-        error => {}
+        error => {loader.dismiss()}
       );
   }
 
   ionViewDidEnter() {
+    let loader = this.presentLoading();
     this.authService.refreshToken()
       .subscribe(response => {
+        loader.dismiss();
         this.authService.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('TabsPage');
       },
-      error => {}
+      error => {loader.dismiss()}
       );  
   }
 
   signup(){
     this.navCtrl.push('SignupPage');
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando..."
+    });
+    loader.present();
+    return loader;
   }
 
 }

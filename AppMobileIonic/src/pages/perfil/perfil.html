@@ -1,9 +1,9 @@
 <ion-header>
     <ion-navbar>
       <ion-title>
-            <button ion-button color="branco" round outline>Editar</button>
-            <button ion-button color="dark" clear disabled>Meu perfil</button>
-            <button ion-button color="branco" round (click)="logout()" outline>Sair</button>
+            <button ion-button color="dark" round>Editar</button>
+            <button ion-button color="dark" clear disabled style="color: white !important; opacity: 1;">Meu perfil</button>
+            <button ion-button color="dark" round (click)="logout()">Sair</button>
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -19,41 +19,52 @@
         <h1>{{cliente?.nome}}</h1>
         <p>{{cliente?.email}}</p>
     </div>
-    <ion-list>
-        <ion-item>
-            <h2>Telefone(s):</h2>
-            <ion-icon name="md-call" item-start></ion-icon>
-            <div *ngFor="let numero of cliente?.telefones; let i = index" [attr.data-index]="i">
-              [ {{ i + 1 }} ]: {{ numero }}
-            </div>
-        </ion-item>
-        
-        <ion-item>
-            <h2 *ngIf="cliente?.tipo == 'PESSOAFISICA'">CPF:</h2>
-            <h2 *ngIf="cliente?.tipo == 'PESSOAJURIDICA'">CNPJ:</h2>
-            <ion-icon name="md-card" item-start ></ion-icon>
-            {{cliente?.cpfOuCnpj}}
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="ios-home" item-start ></ion-icon>
-            <ion-grid *ngFor="let endereco of cliente?.enderecos; let i = index">
-                <h2>Endereço {{i+1}}:</h2>
-                <ion-row>
-                    <ion-col col-6>Estado: {{ endereco.cidade.estado.nome }}</ion-col>
-                    <ion-col col-6>Logradouro: {{ endereco.logradouro }}</ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-6>Cidade: {{ endereco.cidade.nome }}</ion-col>
-                    <ion-col col-6>CEP: {{ endereco.cep }}</ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-6>Bairro: {{ endereco.bairro}}</ion-col>
-                    <ion-col col-6>Número: {{ endereco.numero }}</ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-    </ion-list>
+    
+    <ion-grid>
+        <ion-list>
+            <ion-row class="telcpf">
+                    <ion-col>
+                        <ion-item class="tel">
+                            <h3><ion-icon name="md-call" item-start></ion-icon> Telefone(s):</h3>
+                            <div *ngFor="let numero of cliente?.telefones">
+                                {{ numero }}
+                            </div>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col>
+                        <ion-item class="cpf">
+                            <h3 *ngIf="cliente?.tipo == 'PESSOAFISICA'"><ion-icon name="md-card" item-start ></ion-icon> CPF:</h3>
+                            <h3 *ngIf="cliente?.tipo == 'PESSOAJURIDICA'"><ion-icon name="md-card" item-start ></ion-icon> CNPJ:</h3>
+                            {{cliente?.cpfOuCnpj}}
+                        </ion-item>
+                    </ion-col>
+            </ion-row>        
+            <ion-row>         
+                    <ion-col>
+                        <ion-item>
+                            <h3><ion-icon name="ios-home" item-start></ion-icon>Endereço(s):</h3>
+                            <ion-grid *ngFor="let endereco of cliente?.enderecos; let i = index">
+                                <ion-item>
+                                    <ion-row>
+                                        <ion-col col-6><b>Estado:</b> {{ endereco.cidade.estado.nome }}</ion-col>
+                                        <ion-col col-6><b>Logradouro:</b> {{ endereco.logradouro }}</ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col col-6><b>Cidade:</b> {{ endereco.cidade.nome }}</ion-col>
+                                        <ion-col col-6><b>CEP:</b> {{ endereco.cep }}</ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col col-6><b>Bairro:</b> {{ endereco.bairro}}</ion-col>
+                                        <ion-col col-6><b>Número:</b> {{ endereco.numero }}</ion-col>
+                                    </ion-row>
+                                </ion-item>
+                            </ion-grid>
+                        </ion-item>
+                    </ion-col>
+            </ion-row>
+        </ion-list>
+    </ion-grid>
+    
   </div>
 
 </ion-content>

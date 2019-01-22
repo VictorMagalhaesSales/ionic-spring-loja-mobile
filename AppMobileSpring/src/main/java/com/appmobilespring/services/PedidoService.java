@@ -3,7 +3,7 @@ package com.appmobilespring.services;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.mail.MessagingException;
+//import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ import com.appmobilespring.resources.exception.types.AuthorizationException;
 import com.appmobilespring.resources.exception.types.ObjectNotFoundException;
 import com.appmobilespring.security.UserSS;
 import com.appmobilespring.services.email.EmailService;
-import com.appmobilespring.services.email.EmailServiceAlternative;
+//import com.appmobilespring.services.email.EmailServiceAlternative;
 
 @Service
 public class PedidoService {
@@ -49,8 +49,8 @@ public class PedidoService {
 	@Autowired
 	private EmailService emailService;
 	
-	@Autowired
-	private EmailServiceAlternative emailServiceAlternative;
+	//@Autowired
+	//private EmailServiceAlternative emailServiceAlternative;
 	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
@@ -78,11 +78,11 @@ public class PedidoService {
 		}
 		itemPedidoRepository.saveAll(pedido.getItens());
 		emailService.sendOrderConfirmationHtmlEmail(pedido);
-		try {
+		/*try {
 			emailServiceAlternative.sendHtmlEmail(pedido);
 		} catch (MessagingException e) {
 			emailServiceAlternative.sendEmail(pedido);
-		}
+		}*/
 		return pedido;
 	}
 	

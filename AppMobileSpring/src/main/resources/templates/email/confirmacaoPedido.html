@@ -7,21 +7,24 @@
 <body>
 	<div>
 		<h1>
-			Pedido número: <span th:text="${pedido.id}"> </span>
+			Número do pedido: <span th:text="${pedido.id}"> </span>
 		</h1>
+		<hr>
+		<h3>• Detalhes do usuário:</h3>
 		<p>
-			Instante: <span
+			<b>Data e hora:</b> <span
 				th:text="${#dates.format(pedido.instante, 'dd/MM/yyyy hh:mm')}"></span>
 		</p>
 		<p>
-			Cliente: <span th:text="${pedido.cliente.nome}"></span>
+			<b>Cliente:</b> <span th:text="${pedido.cliente.nome}"></span>
 		</p>
 		<p>
-			Situação do pagamento: <span
+			<b>Situação do pagamento:</b> <span
 				th:text="${pedido.pagamento.estado.descricao}"></span>
 		</p>
-		<h3>Detalhes do pedido:</h3>
-		<table border="1">
+		<hr>
+		<h3>• Detalhes do pedido:</h3>
+		<table cellspacing="15">
 			<tr>
 				<th>Produto</th>
 				<th>Quantidade</th>
@@ -39,11 +42,12 @@
 'COMMA')}">subTotal</td>
 			</tr>
 		</table>
-		<p>
-			Valor total: <span
+		<h2>
+			Valor total: <span style="color: green;">R$</span> <span style="color: green;"
 				th:text="${#numbers.formatDecimal(pedido.valorTotal, 0,
-'POINT', 2, 'COMMA')}"></span>
-		</p>
+'POINT', 2, 'COMMA')}"></span>	
+		</h2>
+		<hr>
 	</div>
 </body>
 </html> 

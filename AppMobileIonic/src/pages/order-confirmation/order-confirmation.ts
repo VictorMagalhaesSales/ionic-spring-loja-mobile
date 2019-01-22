@@ -1,10 +1,11 @@
+import { PedidoService } from './../../services/domain/pedido.service';
 import { CartService } from './../../services/domain/cart.service';
 import { ClienteService } from './../../services/domain/cliente.service';
 import { ClienteDTO } from './../../models/cliente.dto';
 import { CartItem } from './../../models/cart-item';
 import { EnderecoDTO } from './../../models/endereco.dto';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, LoadingController } from 'ionic-angular';
 import { PedidoDTO } from '../../models/pedido.dto';
 
 @IonicPage()
@@ -18,20 +19,22 @@ export class OrderConfirmationPage {
   cartItems: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
+  codpedido: string;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public clienteService: ClienteService,
     public cartService: CartService,
-    public app: App) {
+    public app: App,
+    public pedidoService: PedidoService,
+    public loadingCtrl: LoadingController) {
 
     this.pedido = this.navParams.get('pedido');
   }
 
   ionViewDidLoad() {
     this.cartItems = this.cartService.getCart().items;
-
     this.clienteService.findById(this.pedido.cliente.id)
       .subscribe(response => {
         this.cliente = response as ClienteDTO;
@@ -50,4 +53,42 @@ export class OrderConfirmationPage {
   total() : number {
     return this.cartService.total();
   } 
+
+  carrinhoPage() {
+      this.navCtrl.setRoot('CarrinhoPage');
+      this.navCtrl.parent.select(1);
+  }
+
+  checkout() {
+    let loader = this.presentLoading();
+    this.pedidoService.insert(this.pedido)
+      .subscribe(response => {
+        loader.dismiss();
+        this.cartService.createOrClearCart();
+        this.codpedido = this.extractId(response.headers.get('location'));
+      },
+      error => {
+        loader.dismiss();
+        if (error.status == 403) this.app.getRootNav().setRoot('LoginPage');
+      });
+  }
+
+  categoriasPage() {
+    this.navCtrl.setRoot('CategoriasPage');
+    this.cartService.createOrClearCart();
+    this.navCtrl.parent.select(0);
+  }
+
+  private extractId(location : string) : string {
+    let position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Cadastrando o pedido..."
+    });
+    loader.present();
+    return loader;
+  }
 }

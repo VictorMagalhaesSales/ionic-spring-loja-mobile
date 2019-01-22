@@ -31,5 +31,5 @@
       </ion-item>
     </ion-list>   
     <button ion-button block (click)="continuarComprando()">Continuar comprando</button>
-    <button ion-button color="turquesa" block (click)="checkout()">Finalizar pedido</button>
+    <button [disabled]="!(total() > 0)" ion-button color="turquesa" block (click)="checkout()">Finalizar pedido</button>   
   </ion-content>

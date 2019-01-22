@@ -1,14 +1,14 @@
+import { Component } from '@angular/core';
+import { NavController, IonicPage, App } from 'ionic-angular';
 import { ClienteDTO } from './../../models/cliente.dto';
 import { ClienteService } from './../../services/domain/cliente.service';
 import { AuthService } from './../../services/auth.service';
 import { LocalUser } from './../../models/local_user';
-import { Component } from '@angular/core';
-import { NavController, IonicPage, App } from 'ionic-angular';
 
 @IonicPage()
 @Component({
   selector: 'page-perfil',
-  templateUrl: 'perfil.html'
+  templateUrl: 'perfil.html',
 })
 export class PerfilPage {
 
