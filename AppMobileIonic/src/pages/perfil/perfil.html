@@ -1,9 +1,20 @@
 <ion-header>
     <ion-navbar>
       <ion-title>
-            <button ion-button color="dark" round>Editar</button>
-            <button ion-button color="dark" clear disabled style="color: white !important; opacity: 1;">Meu perfil</button>
-            <button ion-button color="dark" round (click)="logout()">Sair</button>
+            <ion-grid>
+                <ion-row style="height: 30px !important;">
+                    <ion-col col-2>
+                    <ion-icon name="md-contact"></ion-icon>  <label  style="color: white !important; opacity: 1; font-size: 20px; margin-top: 50px !important;">Meu perfil</label>
+                    </ion-col>
+                    <ion-col col-4></ion-col>
+                    <ion-col col-3>
+                        <label  style="color: white!important; font-size: 13px; font-weight: bold;" (click)="editar()">EDITAR</label>
+                    </ion-col>
+                    <ion-col col-3>
+                        <label  style="color: white !important; font-size: 13px; font-weight: bold;" (click)="logout()">SAIR</label>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -20,29 +31,36 @@
         <p>{{cliente?.email}}</p>
     </div>
     
-    <ion-grid>
+    <ion-grid class="grid">
         <ion-list>
             <ion-row class="telcpf">
-                    <ion-col>
+                    <ion-col col-4>
                         <ion-item class="tel">
-                            <h3><ion-icon name="md-call" item-start></ion-icon> Telefone(s):</h3>
+                            <h3><ion-icon name="md-call" item-start></ion-icon> Telefone(s)</h3>
                             <div *ngFor="let numero of cliente?.telefones">
                                 {{ numero }}
                             </div>
                         </ion-item>
                     </ion-col>
-                    <ion-col>
+                    <ion-col col-4>
                         <ion-item class="cpf">
-                            <h3 *ngIf="cliente?.tipo == 'PESSOAFISICA'"><ion-icon name="md-card" item-start ></ion-icon> CPF:</h3>
-                            <h3 *ngIf="cliente?.tipo == 'PESSOAJURIDICA'"><ion-icon name="md-card" item-start ></ion-icon> CNPJ:</h3>
+                            <h3 *ngIf="cliente?.tipo == 'PESSOAFISICA'"><ion-icon name="md-card" item-start ></ion-icon> CPF</h3>
+                            <h3 *ngIf="cliente?.tipo == 'PESSOAJURIDICA'"><ion-icon name="md-card" item-start ></ion-icon> CNPJ</h3>
                             {{cliente?.cpfOuCnpj}}
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-item class="cpf">
+                            <h3><ion-icon name="ios-contact-outline" item-start></ion-icon>Tipo</h3>
+                            <div *ngIf="cliente?.tipo == 'PESSOAFISICA'">Pessoa física</div>
+                            <div *ngIf="cliente?.tipo == 'PESSOAJURIDICA'">Pessoa jurídica</div>
                         </ion-item>
                     </ion-col>
             </ion-row>        
             <ion-row>         
                     <ion-col>
                         <ion-item>
-                            <h3><ion-icon name="ios-home" item-start></ion-icon>Endereço(s):</h3>
+                            <h3><ion-icon name="ios-home" item-start></ion-icon>Endereço(s)</h3>
                             <ion-grid *ngFor="let endereco of cliente?.enderecos; let i = index">
                                 <ion-item>
                                     <ion-row>
@@ -64,8 +82,9 @@
             </ion-row>
         </ion-list>
     </ion-grid>
-    
   </div>
-
+    <ion-fab bottom right>
+        <button navPush="PedidosPage" ion-fab mini><ion-icon name="md-reorder"></ion-icon></button>
+    </ion-fab>
 </ion-content>
   

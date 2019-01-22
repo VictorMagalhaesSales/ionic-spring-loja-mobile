@@ -4,10 +4,11 @@ export class ClienteDTO {
     id : string;
     nome : string;
     email : string;
+    senha: string;
     cpfOuCnpj: string;
     telefones: string[];
     enderecos: EnderecoDTO[];
-    tipo: string;
+    tipo: any;
     perfis: string[];
     imageUrl : string = 'assets/imgs/avatar.jpg'
 }

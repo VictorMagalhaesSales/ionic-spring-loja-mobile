@@ -19,14 +19,11 @@ export class ClienteService {
         return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
-    insert(obj : ClienteDTO) {
-        return this.http.post(
-            `${API_CONFIG.baseUrl}/clientes`, 
-            obj,
-            { 
-                observe: 'response', 
-                responseType: 'text'
-            }
-        ); 
+    insert(cliente : ClienteDTO) {
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, cliente,{observe: 'response',responseType: 'text'}); 
+    }
+
+    update(cliente : any, clienteId: string) {
+        return this.http.put(`${API_CONFIG.baseUrl}/clientes/${clienteId}`, cliente,{observe: 'response',responseType: 'text'}); 
     }
 }

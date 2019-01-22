@@ -97,11 +97,13 @@ public class ClienteService {
 		return cliente;
 	}
 	
-	public Cliente update(ClienteDTO dto) {
-		Cliente cliente = find(dto.getId());
-		cliente.setNome(dto.getNome());
-		cliente.setEmail(dto.getEmail());
-		return repository.save(cliente);
+	public Cliente update(Cliente cliente) {
+		Cliente cliente2 = find(cliente.getId());
+		cliente2.setNome(cliente.getNome());
+		cliente2.setEmail(cliente.getEmail());
+		cliente2.setCpfOuCnpj(cliente.getCpfOuCnpj());
+		cliente2.setTelefones(cliente.getTelefones());
+		return repository.save(cliente2);
 	}
 	
 	public void delete(Integer id){

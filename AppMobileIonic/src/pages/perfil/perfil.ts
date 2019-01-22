@@ -13,6 +13,7 @@ import { LocalUser } from './../../models/local_user';
 export class PerfilPage {
 
   cliente: ClienteDTO;
+  clienteUpdate: ClienteDTO;
 
   constructor(
     public navCtrl: NavController,
@@ -22,12 +23,17 @@ export class PerfilPage {
     ) { }
 
   ionViewWillEnter(){
+    this.loadData();
+  }
+
+  loadData(){
     let localUser: LocalUser = this.authService.getUser();
     if(localUser && localUser.email){
       this.clienteService.findByEmail(localUser.email) 
         .subscribe(
           response => {
             this.cliente = response;
+            this.clienteUpdate = response;
             console.log(this.cliente);
         }, error => {
           if(error.status == 403) this.app.getRootNav().setRoot('LoginPage');
@@ -35,6 +41,10 @@ export class PerfilPage {
     } else {
       this.app.getRootNav().setRoot('LoginPage');
     }
+  }
+
+  editar(){
+    this.navCtrl.push('PerfilEditPage', {cliente: this.cliente});
   }
 
   logout(){

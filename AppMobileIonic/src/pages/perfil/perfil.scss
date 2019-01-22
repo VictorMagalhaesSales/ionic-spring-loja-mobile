@@ -4,12 +4,26 @@ page-perfil {
         text-align: center;
       }
 
+    .grid {
+        padding: 7px !important;
+
+        ion-col {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            ion-item {
+                padding-left: 5px !important;
+                padding-right: 0px !important
+            }
+        }
+    }  
+
     .informacoes {
         margin-top: -20px;
 
         .cabecalho {
             background-color: turquoise;
             color: white;
+            box-shadow: 1px 1px 10px rgb(187, 187, 187);
         }
         .circle {
             width: 30%;
@@ -18,7 +32,7 @@ page-perfil {
             position: static;
             border: 7px solid turquoise;
             margin-left: 20px;
-            margin-bottom: -10px;
+            margin-bottom: -5px;
         }
         ion-item {
             font-size: 12px !important;
