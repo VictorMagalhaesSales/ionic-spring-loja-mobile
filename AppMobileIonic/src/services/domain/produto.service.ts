@@ -9,8 +9,8 @@ export class ProdutoService {
 
   constructor(public http: HttpClient) {}
 
-  findByCategoria(categoriaId: string) {
-    return this.http.get(`${API_CONFIG.baseUrl}/produtos/page/?categoriasid=${categoriaId}`);
+  findByCategoria(categoriaId : string, page : number = 0, linesPerPage : number = 24) {
+    return this.http.get(`${API_CONFIG.baseUrl}/produtos/page/?categoriasid=${categoriaId}&page=${page}&linesPerPage=${linesPerPage}`);
   }
 
   findById(produtoId: string) {

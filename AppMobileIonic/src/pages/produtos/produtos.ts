@@ -12,7 +12,8 @@ import { ProdutoService } from '../../services/domain/produto.service';
 })
 export class ProdutosPage {
 
-  items : ProdutoDTO[];
+  items : ProdutoDTO[] = [];
+  page : number = 0;
   categoria: CategoriaDTO;
 
   constructor(
@@ -29,10 +30,10 @@ export class ProdutosPage {
   loadData() {
     let loader = this.presentLoading();
     this.categoria = JSON.parse(this.navParams.get('categoria'));
-    this.produtoService.findByCategoria(this.categoria.id)
+    this.produtoService.findByCategoria(this.categoria.id, this.page, 10)
       .subscribe(response => {
         loader.dismiss();
-        this.items = response['content'];
+        this.items = this.items.concat(response['content']);
       },
       error => {loader.dismiss()}
     );
@@ -51,9 +52,19 @@ export class ProdutosPage {
   }
 
   doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
     setTimeout(() => {
       refresher.complete();
+    }, 1000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
     }, 1000);
   }
 
