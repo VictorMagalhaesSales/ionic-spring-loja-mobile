@@ -40,6 +40,8 @@ export class PerfilEditPage {
   
   editar(){
     let cliente = this.buildCliente();
+    
+    console.log(cliente);
     this.clienteService.update(cliente, this.cliente.id)
       .subscribe(
         response => {

@@ -103,6 +103,7 @@ public class ClienteService {
 		cliente2.setEmail(cliente.getEmail());
 		cliente2.setCpfOuCnpj(cliente.getCpfOuCnpj());
 		cliente2.setTelefones(cliente.getTelefones());
+		cliente2.setTipo(cliente.getTipo());
 		return repository.save(cliente2);
 	}
 	
