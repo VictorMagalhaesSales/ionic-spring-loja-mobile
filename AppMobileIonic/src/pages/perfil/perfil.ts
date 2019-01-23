@@ -34,7 +34,6 @@ export class PerfilPage {
           response => {
             this.cliente = response;
             this.clienteUpdate = response;
-            console.log(this.cliente);
         }, error => {
           if(error.status == 403) this.app.getRootNav().setRoot('LoginPage');
         });

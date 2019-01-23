@@ -20,7 +20,6 @@ export class PedidosPage {
 
   ionViewDidLoad() {
     this.loadData();
-    this.listPedidos.forEach(x => console.log(x.instante));
   }
 
   loadData(){
