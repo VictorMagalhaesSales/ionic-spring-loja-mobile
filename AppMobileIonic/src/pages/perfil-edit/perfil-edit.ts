@@ -44,7 +44,7 @@ export class PerfilEditPage {
       .subscribe(
         response => {
           this.navCtrl.pop();
-          this.buildToast("Edição finalizada com sucesso");
+          this.buildToast("Perfil editado com sucesso");
         },
         error => {}
       )

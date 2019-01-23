@@ -1,11 +1,11 @@
 page-pedidos {
     ion-content {
         font-size: 13px !important;
-        padding: 0px !important;
+        padding: 30px !important;
     }
     .div {
         margin-bottom: 20px !important;
-        padding: 0px !important;
+        padding: 10px !important;
         box-shadow: 1px 1px 10px gray;
     }
 
@@ -13,18 +13,20 @@ page-pedidos {
         text-align: center;
         padding: 3px;
         color: white;
-        background-color: #488aff;
+        background-color: #27ae60;
     }
 
     .cab1 {
         text-align: center;
         padding: 3px;
         color: white;
-        background-color: #2ecc71;
+        background-color: #27ae60;
     }
 
     .pedido {
         padding: 10px !important;
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
     }
 
     .diminuirFonte {

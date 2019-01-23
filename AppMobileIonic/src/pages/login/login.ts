@@ -12,8 +12,8 @@ import { CredenciaisDTO } from './../../models/credenciais.dto';
 export class LoginPage {
 
   credenciais : CredenciaisDTO = {
-    email: "victormagalhaessales@gmail.com",
-    senha: "123"
+    email: "",
+    senha: ""
   };
   constructor(
     public navCtrl: NavController, 

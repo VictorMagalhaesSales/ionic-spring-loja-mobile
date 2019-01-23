@@ -43,14 +43,8 @@ export class CarrinhoPage {
   }  
 
   continuarComprando() {
-    if(this.navCtrl.root == 'CarrinhoPage'){
       this.navCtrl.parent.select(0);
       this.navCtrl.setRoot("CategoriasPage");
-    }
-      else if(this.navCtrl.root == 'CategoriasPage') {
-      this.navCtrl.pop();
-      this.navCtrl.pop();
-    }
   }
 
   checkout() {
