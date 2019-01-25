@@ -8,49 +8,45 @@
 <ion-content>
   <div class="div" *ngFor="let pedido of listPedidos">
     <div class="cab">
-        <h4><b>Código do pedido: {{pedido.id}}</b></h4>
+      <h6>
+      <ion-row>
+          <ion-col>
+            Pedido {{pedido.id}}
+          </ion-col>
+          <ion-col>
+            {{pedido.instante.substring(0,10)}}
+          </ion-col>
+          <ion-col>
+              {{pedido.pagamento['@type'] == 'pagamentoComCartao' ? 'Cartão(' + pedido.pagamento.numeroDeParcelas + 'x)': 'Boleto'}}
+          </ion-col>
+      </ion-row>
+      </h6>
     </div>
     <div class="pedido">
-        <ion-row>
-          <ion-col>
-            <b>Data:</b>  {{ pedido.instante}}
-          </ion-col>
-          <ion-col>
-            <b>Pagamento:</b> {{ pedido.pagamento['@type'] == 'pagamentoComCartao' ? 'Cartão(' + pedido.pagamento.numeroDeParcelas + 'x)': 'Boleto' }}
-          </ion-col>
-        </ion-row>
-    
         <ion-row><ion-col><b>Endereço de entrega:</b></ion-col></ion-row>
         <div class="diminuirFonte">
           <ion-row>
-            <ion-col><b>Logradouro:</b><br>{{ pedido.enderecoDeEntrega.logradouro }}</ion-col>
-            <ion-col><b>Estado:</b><br>{{ pedido.enderecoDeEntrega.cidade.estado.nome }}</ion-col>
+            {{ pedido.enderecoDeEntrega.logradouro }}, {{ pedido.enderecoDeEntrega.numero }}
           </ion-row>
           <ion-row>
-            <ion-col><b>CEP:</b><br>{{ pedido.enderecoDeEntrega.cep }}
-            </ion-col><ion-col><b>Cidade:</b><br>{{ pedido.enderecoDeEntrega.cidade.nome }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col><b>Número:</b><br>{{ pedido.enderecoDeEntrega.numero }}
-            </ion-col><ion-col><b>Bairro:</b><br>{{ pedido.enderecoDeEntrega.bairro }}</ion-col>
+            {{ pedido.enderecoDeEntrega.bairro }}, {{ pedido.enderecoDeEntrega.cidade.nome }}, {{ pedido.enderecoDeEntrega.cidade.estado.nome }}
           </ion-row>
         </div>
         
-        <ion-row><ion-col><b>Itens:</b></ion-col></ion-row> 
-        <div class="diminuirFonte" *ngFor="let item of pedido.itens" >
-            <ion-row>
-              <ion-col><b>Nome:</b><br>{{ item.produto.nome }}</ion-col>
-              <ion-col><b>Quantia:</b><br>{{ item.quantidade }}</ion-col>
-              <ion-col><b>Total:</b><br>R${{ item.subTotal }},00</ion-col>
-            </ion-row>
+        <ion-row><ion-col><b>Itens:</b></ion-col></ion-row>
+        <ion-row>
+          <div class="diminuirFonte" *ngFor="let item of pedido.itens" >
+              {{ item.produto.nome }} ({{ item.quantidade }}x) - R${{ item.subTotal }},00 <br>
           </div>
+        </ion-row>  
     </div>
+    <hr>
     <div class="cab1">
       <ion-grid>
         <ion-row>
-          
-          <ion-col><h5><b>Total: </b>R$ {{ pedido.valorTotal }},00</h5></ion-col>
-          <ion-col><h5><b> Estado: </b>{{ pedido.pagamento.estado | lowercase }}</h5></ion-col>
+          <ion-col><b>Total: </b>R$ {{ pedido.valorTotal }},00</ion-col>
+          <ion-col><b> Estado: </b><i [style.color]="pedido.pagamento.estado == 'QUITADO' ? 'green' : 'red'">{{ pedido.pagamento.estado | lowercase }}</i></ion-col>
+          <br>
         </ion-row>
       </ion-grid>
     </div>

@@ -17,7 +17,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             .catch((error, caught) => {
                 if(error.error) error = error.error;
                 if(!error.status) error = JSON.parse(error);
-                console.log(error);
                 switch(error.status) {
                     case 403: this.authService.logout();
                     break;

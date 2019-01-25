@@ -48,7 +48,7 @@ export class PerfilPage {
 
   logout(){
     this.authService.logout();
-    this.app.getRootNav().setRoot('LoginPage');
+    this.app.getRootNav().setRoot('LoginPage'), {saindo: 'true'};
   }
 
   pagePedidos(){

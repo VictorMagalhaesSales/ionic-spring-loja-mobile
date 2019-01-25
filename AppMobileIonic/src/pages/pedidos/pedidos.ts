@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PedidoService } from './../../services/domain/pedido.service';
-import { ProdutoDTO } from '../../models/produto.dto';
 
 @IonicPage()
 @Component({
@@ -10,7 +9,7 @@ import { ProdutoDTO } from '../../models/produto.dto';
 })
 export class PedidosPage {
 
-  listPedidos: ProdutoDTO[] = [];
+  listPedidos;
 
   constructor(
     public pedidoService: PedidoService,

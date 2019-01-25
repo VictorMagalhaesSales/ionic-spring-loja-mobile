@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
-import { NavController, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, IonicPage, LoadingController, NavParams } from 'ionic-angular';
 
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 
@@ -16,7 +16,8 @@ export class LoginPage {
     senha: ""
   };
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public authService: AuthService,
     public loadingCtrl: LoadingController
     ) { }
@@ -34,7 +35,7 @@ export class LoginPage {
       );
   }
 
-  ionViewDidEnter() {
+  ionViewCanEnter() {
     let loader = this.presentLoading();
     this.authService.refreshToken()
       .subscribe(response => {
@@ -43,7 +44,7 @@ export class LoginPage {
         this.navCtrl.setRoot('TabsPage');
       },
       error => {loader.dismiss()}
-      );  
+      );
   }
 
   signup(){

@@ -4,7 +4,6 @@ import { ClienteService } from './../../services/domain/cliente.service';
 import { EnderecoDTO } from './../../models/endereco.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
-import { PedidoDTO } from '../../models/pedido.dto';
 
 @IonicPage()
 @Component({
@@ -14,7 +13,7 @@ import { PedidoDTO } from '../../models/pedido.dto';
 export class PickAddressPage {
 
   items: EnderecoDTO[];
-  pedido: PedidoDTO;
+  pedido;
 
   constructor(
     public navCtrl: NavController, 

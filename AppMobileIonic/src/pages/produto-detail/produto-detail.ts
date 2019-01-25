@@ -1,6 +1,6 @@
 import { CartService } from './../../services/domain/cart.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';

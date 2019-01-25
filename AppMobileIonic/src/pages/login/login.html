@@ -21,7 +21,7 @@
                 </ion-item>
             </ion-list>
             <div  padding>
-                <button ion-button block (click)="login()" color="turquesa">
+                <button ion-button block (click)="login()" color="turquesa" [disabled]="credenciais.email == '' || credenciais.senha == ''">
                     <ion-icon name="md-log-in"> </ion-icon>&nbsp;Login
                 </button>
                 <button ion-button block (click)="signup()" outline color="turquesa"> 

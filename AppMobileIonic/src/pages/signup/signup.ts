@@ -73,6 +73,7 @@ export class SignupPage {
   signupUser(){
     this.clienteService.insert(this.formGroup.value)
       .subscribe(response => {
+        this.navCtrl.getPrevious().data.saindo = true;
         this.navCtrl.pop();
         const toast = this.toastCtrl.create({
           message: "Usuário cadastrado com sucesso",

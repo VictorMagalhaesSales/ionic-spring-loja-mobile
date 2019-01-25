@@ -19,7 +19,7 @@
               <ion-item *ngFor="let item of cartItems">
                 <ion-thumbnail item-start>
                   <img [src]="'assets/imgs/produto.jpg'" *ngIf="item.produto.nome.startsWith('Produto')">
-              <img src="assets/imgs/{{item.produto.nome}}.jpg" *ngIf="!item.produto.nome.startsWith('Produto')">
+              <img src="assets/imgs/{{item.produto.nome | lowercase}}.jpg" *ngIf="!item.produto.nome.startsWith('Produto')">
                 </ion-thumbnail>
                 <h2>{{item.produto.nome}}</h2>
                 <p>{{item.produto.preco | currency}}</p>

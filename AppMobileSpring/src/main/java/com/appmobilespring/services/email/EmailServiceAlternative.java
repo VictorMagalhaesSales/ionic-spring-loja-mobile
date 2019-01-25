@@ -80,7 +80,7 @@ public class EmailServiceAlternative {
 		MimeMessageHelper mmh = new MimeMessageHelper(mm, true);
 		mmh.setTo(pedido.getCliente().getEmail());
 		mmh.setFrom(sender);
-		mmh.setSubject("Pedido de código " + pedido.getId() + " confirmado com sucesso!(Forma alternativa customizada e simplificada)");
+		mmh.setSubject("Pedido de código " + pedido.getId() + " confirmado com sucesso!");
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(pedido), true);
 
