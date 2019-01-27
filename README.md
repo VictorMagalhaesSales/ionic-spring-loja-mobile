@@ -8,7 +8,7 @@
 
 ### Algumas fotos
 
-* Início do site
+* Início do app
 
 <img src="https://user-images.githubusercontent.com/20648428/51728935-ca004a80-2050-11e9-9406-e77b70bc4f92.jpeg" width="24%"> <img src="https://user-images.githubusercontent.com/20648428/51728944-ca98e100-2050-11e9-9d93-b7f030a6a158.jpeg" width="24%"> <img src="https://user-images.githubusercontent.com/20648428/51728945-ca98e100-2050-11e9-9b5d-3d9bef04a2c2.jpeg" width="24%"> <img src="https://user-images.githubusercontent.com/20648428/51728946-ca98e100-2050-11e9-9810-79910b900b7b.jpeg" width="24%">
 
