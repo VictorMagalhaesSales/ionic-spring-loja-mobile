@@ -1,6 +1,6 @@
 ﻿# Loja Online Mobile
 
-### Detalhes do site
+### Detalhes do sistema
 * Site de vendas online, estilo Mercado Livre, com suporte para Android, IOS e Windows Phone;
 * Finalidade: treinamento pessoal;
 * Ferramentas: Ionic, Spring, envio de emails com SMTP da Google, segunças com Spring Security e tokens JWT;
